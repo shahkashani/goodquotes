@@ -14,5 +14,6 @@ Options:
   --version   Show version number                                      [boolean]
   --tag       Tag to search for                                       [required]
   --language  Language to restrict quotes to (e.g. "french")
+  --pages     Maximum number of pages to go through                     [number]
   --length    Maximum quote length                       [number] [default: 100]
 ```
