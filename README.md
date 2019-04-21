@@ -13,7 +13,8 @@ Options:
   --help      Show help                                                [boolean]
   --version   Show version number                                      [boolean]
   --tag       Tag to search for                                       [required]
+  --output    A file path to output the results to
   --language  Language to restrict quotes to (e.g. "french")
-  --pages     Maximum number of pages to go through                     [number]
+  --min       Minimum number of quotes to get (omit to get all quotes)
   --length    Maximum quote length                       [number] [default: 100]
 ```

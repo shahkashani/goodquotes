@@ -1,19 +1,21 @@
 const request = require('request-promise');
 const cheerio = require('cheerio');
 const lngDetector = new (require('languagedetect'))();
+const { writeFileSync } = require('fs');
 
 const argv = require('yargs')
   .usage('Usage: $0 <command> [options]')
   .number('length')
-  .number('pages')
+  .number('total')
   .required('tag')
   .default('length', 100)
   .describe('tag', 'Tag to search for')
+  .describe('output', 'A file path to output the results to')
   .describe('language', 'Language to restrict quotes to (e.g. "french")')
-  .describe('pages', 'Maximum number of pages to go through')
+  .describe('min', 'Minimum number of quotes to get (omit to get all quotes)')
   .describe('length', 'Maximum quote length').argv;
 
-const { tag, length, language, pages } = argv;
+const { tag, length, language, min, output } = argv;
 
 const getLanguage = text => {
   const [result] = lngDetector.detect(text, 1);
@@ -34,7 +36,7 @@ const getQuotes = async (tag, page = 1) => {
     .get();
 };
 
-const getAllQuotes = async ({ tag, pages, filter, onProgress }) => {
+const getAllQuotes = async ({ tag, min, filter, onProgress }) => {
   let page = 1;
   let stop = false;
   const result = [];
@@ -42,7 +44,7 @@ const getAllQuotes = async ({ tag, pages, filter, onProgress }) => {
     const quotes = await getQuotes(tag, page);
     const filteredQuotes = filter ? quotes.filter(filter) : quotes;
     page += 1;
-    stop = quotes.length === 0 || (pages && page > pages);
+    stop = quotes.length === 0 || (min && result.length >= min);
     if (filteredQuotes.length) {
       onProgress(filteredQuotes);
       result.push.apply(result, filteredQuotes);
@@ -53,7 +55,7 @@ const getAllQuotes = async ({ tag, pages, filter, onProgress }) => {
 
 getAllQuotes({
   tag,
-  pages,
+  min,
   filter: q => q.length <= length && (!language || getLanguage(q) === language),
   onProgress: quotes => {
     if (quotes.length) {
@@ -61,5 +63,8 @@ getAllQuotes({
     }
   }
 }).then(quotes => {
-  console.log(`Grabbed ${quotes.length} quotes!`);
+  console.log(`🎉 Done, grabbed ${quotes.length} quotes!`);
+  if (output) {
+    writeFileSync(output, quotes.join('\n'));
+  }
 });
