@@ -10,8 +10,9 @@ Just a lil' thing to grab quotes from Goodreads. Will probably ever be used to s
 Usage: index.js <command> [options]
 
 Options:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
-  --tag      What to search for                                       [required]
-  --length   Maximum quote length                        [number] [default: 100]
+  --help      Show help                                                [boolean]
+  --version   Show version number                                      [boolean]
+  --tag       Tag to search for                                       [required]
+  --language  Language to restrict quotes to (e.g. "french")
+  --length    Maximum quote length                       [number] [default: 100]
 ```
