@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^7.0.0",
+    "fast-xml-parser": "^3.12.16",
     "languagedetect": "^1.2.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",

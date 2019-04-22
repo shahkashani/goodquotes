@@ -10,11 +10,13 @@ Just a lil' thing to grab quotes from Goodreads. Will probably ever be used to s
 Usage: index.js <command> [options]
 
 Options:
-  --help      Show help                                                [boolean]
-  --version   Show version number                                      [boolean]
-  --tag       Tag to search for                                       [required]
-  --output    A file path to output the results to
-  --language  Language to restrict quotes to (e.g. "french")
-  --min       Minimum number of quotes to get (omit to get all quotes)
-  --length    Maximum quote length                       [number] [default: 100]
+  --help              Show help                                        [boolean]
+  --version           Show version number                              [boolean]
+  --search, -s        Search phrase                                   [required]
+  --author            Search is for an author         [boolean] [default: false]
+  --output, -o        A file path to output the results to
+  --language, --lang  Language to restrict quotes to (e.g. "french")
+  --num, -n           Number of quotes to get (omit to get all available quotes)
+                                                                        [number]
+  --length, --len     Maximum quote length                [number] [default: 60]
 ```
