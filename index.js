@@ -29,7 +29,7 @@ const { GOODREADS_API_KEY, GOODREADS_API_SECRET } = process.env;
 
 const getLanguage = text => {
   const [result] = lngDetector.detect(text, 1);
-  return result.length ? result[0] : null;
+  return result && result.length ? result[0] : null;
 };
 
 const getAllQuotes = async ({ search, source, num, filter, onProgress }) => {
@@ -57,7 +57,7 @@ const getAllQuotes = async ({ search, source, num, filter, onProgress }) => {
     num,
     source,
     filter: q =>
-      q.length <= length && (!language || getLanguage(q) === language),
+      q && q.length <= length && (!language || getLanguage(q) === language),
     onProgress: quotes => {
       if (quotes.length) {
         console.log(quotes.join('\n'));
